@@ -9,6 +9,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -35,156 +36,152 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer className="bg-card text-card-foreground border-t border-border mt-12">
       {/* Newsletter Section */}
-      <div className="border-b border-primary-foreground/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div>
-              <h3 className="text-2xl font-bold mb-2">Stay Updated</h3>
-              <p className="text-primary-foreground/80">
-                Get the latest insights on B2B marketing, automation trends, and
-                technology solutions.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
-              />
-              <Button className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-6">
-                Subscribe
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </div>
+      <div className="gradient-hero text-center sm:text-left">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="space-y-2 max-w-md">
+            <h3 className="text-3xl font-extrabold text-white">
+              Get Exclusive Insights
+            </h3>
+            <p className="text-white/90 text-sm">
+              Join our newsletter and stay ahead in B2B marketing, automation,
+              and technology.
+            </p>
+          </div>
+
+          <div className="flex w-full sm:w-auto flex-col sm:flex-row gap-3">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-accent"
+            />
+            <Button className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-6 flex items-center justify-center gap-2 transition-all hover:scale-105 shadow-md">
+              Subscribe <ArrowRight className="w-4 h-4" />
+            </Button>
           </div>
         </div>
       </div>
 
       {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div className="lg:col-span-1">
-            <Link to="/" className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
-                <span className="text-accent-foreground font-bold text-xl">
-                  D
-                </span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xl font-bold">DigiConnex</span>
-                <span className="text-xs text-primary-foreground/70 -mt-1">
-                  Marketing Agency
-                </span>
-              </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        {/* Company Info */}
+        <div>
+          <Link to="/" className="flex items-center space-x-2 mb-4 group">
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center shadow-md"
+            >
+              <span className="text-white font-bold text-lg">D</span>
+            </motion.div>
+            <div className="flex flex-col">
+              <span className="text-xl font-bold text-gradient-primary">
+                DigiConnex
+              </span>
+              <span className="text-xs text-muted-foreground -mt-1">
+                Marketing Agency
+              </span>
+            </div>
+          </Link>
+          <p className="text-muted-foreground leading-relaxed mb-6">
+            Transforming businesses with data-driven strategies, intelligent
+            automation, and modern tech solutions for scalable growth.
+          </p>
+          <div className="space-y-3 text-sm">
+            <div className="flex items-center gap-3">
+              <Mail className="w-4 h-4 text-accent" />
+              hello@digiconnex.com
+            </div>
+            <div className="flex items-center gap-3">
+              <Phone className="w-4 h-4 text-accent" />
+              +1 (555) 123-4567
+            </div>
+            <div className="flex items-center gap-3">
+              <MapPin className="w-4 h-4 text-accent" />
+              San Francisco, CA
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Links */}
+        <div>
+          <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul className="space-y-2">
+            {quickLinks.map((link) => (
+              <li key={link.name}>
+                <Link
+                  to={link.href}
+                  className="text-muted-foreground hover:text-accent transition-colors text-sm"
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Services */}
+        <div>
+          <h4 className="text-lg font-semibold mb-4">Services</h4>
+          <ul className="space-y-2">
+            {services.map((service) => (
+              <li key={service.name}>
+                <Link
+                  to={service.href}
+                  className="text-muted-foreground hover:text-accent transition-colors text-sm"
+                >
+                  {service.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Social & Legal */}
+        <div>
+          <h4 className="text-lg font-semibold mb-4">Connect With Us</h4>
+          <div className="flex space-x-3 mb-6">
+            {socialLinks.map((social) => {
+              const Icon = social.icon;
+              return (
+                <motion.a
+                  whileHover={{ scale: 1.1 }}
+                  key={social.name}
+                  href={social.href}
+                  className="w-10 h-10 rounded-lg bg-muted hover:bg-accent flex items-center justify-center transition-colors shadow-sm"
+                  aria-label={social.name}
+                >
+                  <Icon className="w-5 h-5 text-foreground group-hover:text-accent-foreground" />
+                </motion.a>
+              );
+            })}
+          </div>
+          <div className="space-y-2 text-sm">
+            <Link
+              to="/privacy"
+              className="block text-muted-foreground hover:text-accent transition-colors"
+            >
+              Privacy Policy
             </Link>
-            <p className="text-primary-foreground/80 mb-6 leading-relaxed">
-              Transforming businesses through data-driven marketing solutions,
-              intelligent automation, and cutting-edge technology
-              infrastructure.
-            </p>
-
-            {/* Contact Info */}
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <Mail className="w-4 h-4 text-accent" />
-                <span className="text-sm">hello@digiconnex.com</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="w-4 h-4 text-accent" />
-                <span className="text-sm">+1 (555) 123-4567</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <MapPin className="w-4 h-4 text-accent" />
-                <span className="text-sm">San Francisco, CA</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              {quickLinks.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-primary-foreground/80 hover:text-accent transition-colors duration-200 text-sm"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Services</h4>
-            <ul className="space-y-2">
-              {services.map((service) => (
-                <li key={service.name}>
-                  <Link
-                    to={service.href}
-                    className="text-primary-foreground/80 hover:text-accent transition-colors duration-200 text-sm"
-                  >
-                    {service.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Social & Legal */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Connect</h4>
-            <div className="flex space-x-4 mb-6">
-              {socialLinks.map((social) => {
-                const Icon = social.icon;
-                return (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    className="w-10 h-10 bg-white/10 hover:bg-accent rounded-lg flex items-center justify-center transition-colors duration-200 group"
-                    aria-label={social.name}
-                  >
-                    <Icon className="w-5 h-5 group-hover:text-accent-foreground" />
-                  </a>
-                );
-              })}
-            </div>
-
-            <div className="space-y-2">
-              <Link
-                to="/privacy"
-                className="block text-primary-foreground/80 hover:text-accent transition-colors duration-200 text-sm"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                to="/terms"
-                className="block text-primary-foreground/80 hover:text-accent transition-colors duration-200 text-sm"
-              >
-                Terms of Service
-              </Link>
-            </div>
+            <Link
+              to="/terms"
+              className="block text-muted-foreground hover:text-accent transition-colors"
+            >
+              Terms of Service
+            </Link>
           </div>
         </div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-primary-foreground/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-primary-foreground/60 text-sm">
-              © {currentYear} DigiConnex. All rights reserved.
-            </p>
-            <p className="text-primary-foreground/60 text-sm mt-2 md:mt-0">
-              Made with ❤️ for growing businesses
-            </p>
-          </div>
+      <div className="border-t border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between">
+          <p className="text-muted-foreground text-sm">
+            © {currentYear} DigiConnex. All rights reserved.
+          </p>
+          <p className="text-muted-foreground text-sm mt-2 md:mt-0">
+            Made with ❤️ & innovation for growing businesses
+          </p>
         </div>
       </div>
     </footer>

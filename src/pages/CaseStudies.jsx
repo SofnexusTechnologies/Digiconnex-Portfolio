@@ -1,7 +1,7 @@
-import CaseStudyCard from "@/components/sections/CaseStudyCard";
-import CallToActionBanner from "@/components/sections/CallToActionBanner";
 import { Filter, Search, TrendingUp } from "lucide-react";
 import { useState } from "react";
+import CaseStudyCard from "@/components/sections/CaseStudyCard";
+import CallToActionBanner from "@/components/sections/CallToActionBanner";
 
 const CaseStudies = () => {
   const [filterIndustry, setFilterIndustry] = useState("All");
@@ -14,6 +14,7 @@ const CaseStudies = () => {
     "E-commerce",
     "Healthcare",
     "Manufacturing",
+    "Logistics",
   ];
 
   const caseStudies = [
@@ -126,14 +127,104 @@ const CaseStudies = () => {
     return matchesIndustry && matchesSearch;
   });
 
-  const successMetrics = {
-    totalClients: "500+",
-    avgROI: "165%",
-    totalRevenue: "$50M+",
-    satisfaction: "98%",
-  };
+  const successMetrics = [
+    { metric: "500+", label: "Clients Served" },
+    { metric: "165%", label: "Avg ROI Increase" },
+    { metric: "$50M+", label: "Revenue Impact" },
+    { metric: "98%", label: "Client Satisfaction" },
+  ];
 
-  return <div className="min-h-screen"></div>;
+  return (
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="section-padding bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10">
+        <div className="container-custom text-center">
+          <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-6">
+            <TrendingUp className="w-4 h-4" />
+            <span>Success Stories</span>
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
+            Real <span className="text-gradient-primary">Results</span> from Our
+            Clients
+          </h1>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+            Explore how we’ve helped businesses across industries achieve
+            breakthrough results through data, automation, and technology.
+          </p>
+        </div>
+      </section>
+
+      {/* Success Metrics Banner */}
+      <section className="bg-gradient-to-r from-primary to-secondary py-12">
+        <div className="container-custom grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          {successMetrics.map((item, idx) => (
+            <div key={idx} className="space-y-2 text-primary-foreground">
+              <h3 className="text-3xl md:text-4xl font-bold">{item.metric}</h3>
+              <p className="text-sm opacity-90">{item.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Filter + Search */}
+      <section className="section-padding">
+        <div className="container-custom flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
+          {/* Industry Filters */}
+          <div className="flex flex-wrap gap-2">
+            {industries.map((industry) => (
+              <button
+                key={industry}
+                onClick={() => setFilterIndustry(industry)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  filterIndustry === industry
+                    ? "bg-gradient-primary text-white shadow-lg"
+                    : "bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary"
+                }`}
+              >
+                {industry}
+              </button>
+            ))}
+          </div>
+
+          {/* Search Bar */}
+          <div className="relative w-full md:w-72">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Search case studies..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 rounded-lg border border-border bg-background focus:ring-2 focus:ring-accent focus:outline-none"
+            />
+          </div>
+        </div>
+
+        {/* Case Studies Grid */}
+        <div className="container-custom grid grid-cols-1 md:grid-cols-2 gap-8">
+          {filteredCaseStudies.length > 0 ? (
+            filteredCaseStudies.map((study, idx) => (
+              <CaseStudyCard key={idx} {...study} />
+            ))
+          ) : (
+            <div className="col-span-full text-center text-muted-foreground py-16">
+              No case studies match your filters.
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* CTA Banner */}
+      <div className="container-custom">
+        <CallToActionBanner
+          title="Your Success Story Starts Here"
+          subtitle="Let's create a custom solution that drives measurable results for your business."
+          primaryCta="Book a Free Consultation"
+          primaryCtaLink="/contact"
+          theme="gradient"
+        />
+      </div>
+    </div>
+  );
 };
 
 export default CaseStudies;

@@ -1,32 +1,22 @@
-import { HashRouter, Routes, Route } from "react-router-dom";
+import Home from "@/pages/Home";
+import Services from "@/pages/Services";
+import Industries from "@/pages/Industries";
+import About from "@/pages/About";
+import CaseStudies from "@/pages/CaseStudies";
+import FAQ from "@/pages/FAQ";
+import Contact from "@/pages/Contact";
+import NotFound from "@/pages/NotFound";
 
-// Import Pages
-import Home from "../pages/Home";
-import About from "../pages/About";
-import Services from "../pages/Services";
-import Portfolio from "../pages/Portfolio";
-import Contact from "../pages/Contact";
-import NotFound from "../pages/NotFound";
+const appRoutes = [
+  { path: "/", element: <Home /> },
+  { path: "/services", element: <Services /> },
+  { path: "/industries", element: <Industries /> },
+  { path: "/about", element: <About /> },
+  { path: "/case-studies", element: <CaseStudies /> },
+  { path: "/faq", element: <FAQ /> },
+  { path: "/contact", element: <Contact /> },
+  // Catch-all route (should always be last)
+  { path: "*", element: <NotFound /> },
+];
 
-// Optional Layouts
-import MainLayout from "../layouts/MainLayout";
-
-export default function AppRoutes() {
-  return (
-    <HashRouter>
-      <Routes>
-        {/* Wrap pages in a layout (Navbar + Footer) */}
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/portfolio" element={<Portfolio />} />
-          <Route path="/contact" element={<Contact />} />
-        </Route>
-
-        {/* Fallback Route */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </HashRouter>
-  );
-}
+export default appRoutes;

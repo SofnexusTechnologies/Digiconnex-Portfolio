@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import CallToActionBanner from "@/components/sections/CallToActionBanner";
 import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Services = () => {
   const [activeService, setActiveService] = useState(0);
@@ -138,166 +139,175 @@ const Services = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10">
-        <div className="container-custom">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-              <Star className="w-4 h-4" />
-              <span>Our Services</span>
+      <section className="relative section-padding bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10">
+        <div className="container-custom text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="inline-flex items-center bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
+              <Star className="w-4 h-4 mr-1" />
+              Our Services
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 text-balance">
+            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
               Comprehensive Solutions for{" "}
               <span className="text-gradient-primary">Business Growth</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-4xl mx-auto text-pretty">
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               From data intelligence to automation and technology
-              infrastructure, we provide end-to-end solutions that drive
-              measurable growth and operational excellence for modern
-              businesses.
+              infrastructure, we provide end-to-end solutions that deliver
+              measurable growth and operational excellence.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Services Navigation */}
-      <section className="py-8 bg-card border-b border-border sticky top-0 z-40 backdrop-blur-sm">
-        <div className="container-custom">
-          <div className="flex flex-wrap justify-center gap-4">
-            {services.map((service, index) => {
-              const Icon = service.icon;
-              return (
-                <button
-                  key={index}
-                  onClick={() => setActiveService(index)}
-                  className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
-                    activeService === index
-                      ? "bg-gradient-primary text-white shadow-lg"
-                      : "bg-muted text-muted-foreground hover:bg-primary/10 hover:text-primary"
-                  }`}
-                >
-                  <Icon className="w-5 h-5" />
-                  <span>{service.title}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Active Service Details */}
-      <section className="section-padding">
-        <div className="container-custom">
+      {/* Sticky Services Tabs */}
+      <section className="py-6 bg-card border-b border-border sticky top-16 z-40 backdrop-blur-md">
+        <div className="container-custom flex flex-wrap justify-center gap-3">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
-              <div
+              <button
                 key={index}
-                className={`transition-all duration-500 ${
+                onClick={() => setActiveService(index)}
+                className={`flex items-center space-x-2 px-5 py-3 rounded-xl font-medium text-sm shadow-sm transition-all duration-300 ${
                   activeService === index
-                    ? "opacity-100 block"
-                    : "opacity-0 hidden"
+                    ? "bg-gradient-primary text-white shadow-lg scale-105"
+                    : "bg-muted text-muted-foreground hover:bg-primary/10 hover:text-primary"
                 }`}
               >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-16">
-                  <div>
-                    <div className="flex items-center space-x-4 mb-6">
-                      <div className="w-16 h-16 bg-gradient-primary rounded-xl flex items-center justify-center">
-                        <Icon className="w-8 h-8 text-white" />
-                      </div>
-                      <div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                          {service.title}
-                        </h2>
-                        <p className="text-lg text-primary font-medium">
-                          {service.subtitle}
-                        </p>
-                      </div>
-                    </div>
-                    <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                      {service.description}
-                    </p>
-                    <Link
-                      to="/contact"
-                      className="inline-flex items-center space-x-2 btn-cta"
-                    >
-                      <span>Get Started</span>
-                      <ArrowRight className="w-5 h-5" />
-                    </Link>
-                  </div>
-
-                  <div className="space-y-8">
-                    {/* Features */}
-                    <div className="card-elegant p-6">
-                      <h3 className="text-xl font-bold text-foreground mb-4 flex items-center space-x-2">
-                        <Target className="w-5 h-5 text-primary" />
-                        <span>Key Features</span>
-                      </h3>
-                      <ul className="space-y-3">
-                        {service.features.map((feature, idx) => (
-                          <li key={idx} className="flex items-center space-x-3">
-                            <Check className="w-5 h-5 text-secondary flex-shrink-0" />
-                            <span className="text-foreground">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Benefits */}
-                    <div className="card-elegant p-6">
-                      <h3 className="text-xl font-bold text-foreground mb-4 flex items-center space-x-2">
-                        <TrendingUp className="w-5 h-5 text-secondary" />
-                        <span>Expected Results</span>
-                      </h3>
-                      <ul className="space-y-3">
-                        {service.benefits.map((benefit, idx) => (
-                          <li key={idx} className="flex items-center space-x-3">
-                            <div className="w-2 h-2 bg-accent rounded-full flex-shrink-0"></div>
-                            <span className="text-foreground font-medium">
-                              {benefit}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Use Cases */}
-                <div className="mb-16">
-                  <h3 className="text-2xl font-bold text-foreground mb-8 text-center">
-                    Common Use Cases
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {service.useCases.map((useCase, idx) => (
-                      <div key={idx} className="feature-card">
-                        <h4 className="text-lg font-bold text-foreground mb-3">
-                          {useCase.title}
-                        </h4>
-                        <p className="text-muted-foreground leading-relaxed">
-                          {useCase.description}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+                <Icon className="w-4 h-4" />
+                <span>{service.title}</span>
+              </button>
             );
           })}
         </div>
       </section>
 
+      {/* Service Details */}
+      <section className="section-padding">
+        <div className="container-custom">
+          <AnimatePresence mode="wait">
+            {services.map((service, index) => {
+              const Icon = service.icon;
+              if (activeService !== index) return null;
+
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
+                    <div>
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="w-16 h-16 bg-gradient-primary rounded-xl flex items-center justify-center shadow-md">
+                          <Icon className="w-8 h-8 text-white" />
+                        </div>
+                        <div>
+                          <h2 className="text-3xl md:text-4xl font-bold">
+                            {service.title}
+                          </h2>
+                          <p className="text-lg text-primary font-medium">
+                            {service.subtitle}
+                          </p>
+                        </div>
+                      </div>
+                      <p className="text-lg text-muted-foreground mb-6">
+                        {service.description}
+                      </p>
+                      <Link
+                        to="/contact"
+                        className="inline-flex items-center space-x-2 px-6 py-3 rounded-lg bg-gradient-accent text-accent-foreground font-semibold hover:scale-105 transition-transform shadow-md"
+                      >
+                        <span>Get Started</span>
+                        <ArrowRight className="w-5 h-5" />
+                      </Link>
+                    </div>
+
+                    <div className="space-y-8">
+                      {/* Features */}
+                      <div className="bg-card border border-border/50 rounded-xl shadow-sm p-6">
+                        <h3 className="text-xl font-bold flex items-center gap-2 mb-4">
+                          <Target className="w-5 h-5 text-primary" />
+                          Key Features
+                        </h3>
+                        <ul className="space-y-3">
+                          {service.features.map((feature, idx) => (
+                            <li
+                              key={idx}
+                              className="flex items-center gap-3 text-foreground"
+                            >
+                              <Check className="w-5 h-5 text-secondary flex-shrink-0" />
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Benefits */}
+                      <div className="bg-card border border-border/50 rounded-xl shadow-sm p-6">
+                        <h3 className="text-xl font-bold flex items-center gap-2 mb-4">
+                          <TrendingUp className="w-5 h-5 text-secondary" />
+                          Expected Results
+                        </h3>
+                        <ul className="space-y-3">
+                          {service.benefits.map((benefit, idx) => (
+                            <li
+                              key={idx}
+                              className="flex items-center gap-3 text-foreground"
+                            >
+                              <div className="w-2 h-2 bg-accent rounded-full" />
+                              <span className="font-medium">{benefit}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Use Cases */}
+                  <div className="mb-16">
+                    <h3 className="text-2xl font-bold text-center mb-10">
+                      Common Use Cases
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                      {service.useCases.map((useCase, idx) => (
+                        <div
+                          key={idx}
+                          className="bg-card border border-border/50 rounded-xl p-6 shadow-sm hover:shadow-lg transition-all"
+                        >
+                          <h4 className="text-lg font-semibold mb-3">
+                            {useCase.title}
+                          </h4>
+                          <p className="text-muted-foreground">
+                            {useCase.description}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </div>
+      </section>
+
       {/* Process Section */}
       <section className="section-padding bg-muted/30">
-        <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Our <span className="text-gradient-accent">Proven Process</span>
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              We follow a systematic approach to ensure successful
-              implementation and maximum ROI for every client.
-            </p>
-          </div>
+        <div className="container-custom text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Our <span className="text-gradient-accent">Proven Process</span>
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-12">
+            We follow a systematic approach to ensure successful implementation
+            and maximum ROI for every client.
+          </p>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
@@ -326,26 +336,39 @@ const Services = () => {
                   "Continuous monitoring and refinement to maximize performance and ROI.",
               },
             ].map((process, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="flex flex-col items-center text-center bg-card border border-border/50 rounded-xl p-6 shadow-sm hover:shadow-lg transition-all"
+              >
+                <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mb-4 shadow-md">
                   <span className="text-2xl font-bold text-white">
                     {process.step}
                   </span>
                 </div>
-                <h3 className="text-lg font-bold text-foreground mb-3">
-                  {process.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
+                <h3 className="text-lg font-bold mb-2">{process.title}</h3>
+                <p className="text-muted-foreground text-sm">
                   {process.description}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Call to Action Banner */}
-      <CallToActionBanner />
+      {/* CTA Banner */}
+      <div className="container-custom">
+        <CallToActionBanner
+          title="Let's Build Your Growth Engine"
+          subtitle="Partner with us to unlock your company's full potential with data, automation, and technology."
+          primaryCta="Start Your Project"
+          primaryCtaLink="/contact"
+          secondaryCta="Talk to an Expert"
+          secondaryCtaLink="/contact"
+        />
+      </div>
     </div>
   );
 };

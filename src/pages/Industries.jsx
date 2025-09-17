@@ -11,6 +11,7 @@ import {
   Shield,
   Zap,
 } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Industries = () => {
   const industries = [
@@ -136,7 +137,84 @@ const Industries = () => {
     },
   ];
 
-  return <div className="min-h-screen"></div>;
+  return (
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative section-padding bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10">
+        <div className="container-custom text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
+              Industries We{" "}
+              <span className="text-gradient-primary">Empower</span>
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+              From technology to healthcare, we help organizations unlock
+              growth, improve efficiency, and stay ahead of the competition with
+              innovative solutions.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Success Metrics */}
+      <section className="py-16 bg-card border-b border-border/50">
+        <div className="container-custom grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          {successMetrics.map((metric, index) => {
+            const Icon = metric.icon;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-card/50 rounded-xl p-6 shadow-sm hover:shadow-lg border border-border/50 transition-all"
+              >
+                <div className="w-14 h-14 mx-auto bg-gradient-accent rounded-full flex items-center justify-center mb-4 shadow-md">
+                  <Icon className="w-6 h-6 text-accent-foreground" />
+                </div>
+                <h3 className="text-3xl font-bold text-foreground mb-2">
+                  {metric.metric}
+                </h3>
+                <p className="text-lg font-medium">{metric.label}</p>
+                <p className="text-muted-foreground text-sm mt-1">
+                  {metric.description}
+                </p>
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Industry Cards */}
+      <section className="section-padding">
+        <div className="container-custom grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {industries.map((industry, index) => (
+            <IndustryCard
+              key={index}
+              {...industry}
+              link={`/industries/${industry.title.toLowerCase()}`}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* Call to Action Banner */}
+      <div className="container-custom">
+        <CallToActionBanner
+          title="Partner with Us to Unlock Your Industry's Potential"
+          subtitle="Whether you're in tech, retail, or healthcare, our tailored solutions will help you grow faster, smarter, and more efficiently."
+          primaryCta="Explore Case Studies"
+          primaryCtaLink="/case-studies"
+          secondaryCta="Talk to an Expert"
+          secondaryCtaLink="/contact"
+        />
+      </div>
+    </div>
+  );
 };
 
 export default Industries;

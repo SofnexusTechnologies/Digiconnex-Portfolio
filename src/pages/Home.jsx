@@ -17,6 +17,7 @@ import {
   Award,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const services = [
@@ -24,12 +25,12 @@ const Home = () => {
       icon: Database,
       title: "B2B Data Solutions",
       description:
-        "Unlock the power of precise, actionable B2B data to fuel your sales and marketing efforts with our comprehensive data intelligence platform.",
+        "Unlock precise, actionable B2B data to fuel your growth with our intelligence platform.",
       features: [
         "Real-time data enrichment",
-        "Lead scoring and qualification",
-        "Contact and company intelligence",
-        "Data cleansing and validation",
+        "Lead scoring & qualification",
+        "Contact & company intelligence",
+        "Data cleansing & validation",
       ],
       link: "/services#data",
     },
@@ -37,12 +38,12 @@ const Home = () => {
       icon: Zap,
       title: "Automation Services",
       description:
-        "Streamline your operations with intelligent automation solutions that eliminate manual processes and accelerate your business growth.",
+        "Streamline operations with automation that removes manual work and accelerates results.",
       features: [
         "Workflow automation",
-        "Email marketing automation",
-        "CRM integration and sync",
-        "Custom automation workflows",
+        "Email campaigns",
+        "CRM sync & integration",
+        "Custom automation flows",
       ],
       link: "/services#automation",
     },
@@ -50,12 +51,12 @@ const Home = () => {
       icon: Cog,
       title: "Technology Solutions",
       description:
-        "Transform your business with cutting-edge technology infrastructure that scales with your growth and adapts to market changes.",
+        "Transform your infrastructure with modern, scalable tech built for growth and agility.",
       features: [
-        "Cloud integration services",
-        "API development and integration",
-        "Business intelligence platforms",
-        "Custom software development",
+        "Cloud integrations",
+        "API development",
+        "BI dashboards",
+        "Custom software",
       ],
       link: "/services#technology",
     },
@@ -66,104 +67,132 @@ const Home = () => {
       icon: Target,
       title: "Precision Targeting",
       description:
-        "Reach your ideal customers with laser-focused targeting strategies based on comprehensive data analysis.",
+        "Reach your ideal audience with data-driven targeting strategies.",
     },
     {
       icon: TrendingUp,
       title: "Growth Analytics",
       description:
-        "Track, measure, and optimize your performance with advanced analytics and real-time reporting dashboards.",
+        "Track, measure, and optimize your campaigns with real-time insights.",
     },
     {
       icon: Shield,
       title: "Data Security",
       description:
-        "Enterprise-grade security protocols ensure your business data remains protected and compliant.",
+        "Enterprise-grade encryption keeps your data safe and compliant.",
     },
   ];
 
   const whyChooseUsFeatures = [
     {
       title: "Proven Track Record",
-      description:
-        "Over 500 successful implementations with an average ROI increase of 150%",
+      description: "500+ successful projects with 150% average ROI increase",
     },
     {
       title: "Industry Expertise",
       description:
-        "Specialized knowledge across technology, finance, healthcare, and e-commerce sectors",
+        "Specialized teams across tech, finance, healthcare & e-commerce",
     },
     {
       title: "Scalable Solutions",
       description:
-        "Technology infrastructure that grows with your business, from startup to enterprise",
+        "Infrastructure that grows with your business – startup to enterprise",
     },
     {
       title: "24/7 Support",
-      description:
-        "Dedicated support team ensures your systems run smoothly around the clock",
+      description: "Always-on support team ensures smooth operations",
     },
     {
       title: "Data-Driven Approach",
       description:
-        "Every recommendation backed by comprehensive analysis and market intelligence",
+        "Every recommendation backed by actionable analytics & research",
     },
     {
       title: "Rapid Implementation",
-      description:
-        "Fast deployment cycles get you seeing results in weeks, not months",
+      description: "Get results in weeks, not months, with our agile approach",
     },
   ];
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <HeroSection />
+      {/* HERO SECTION */}
+      <section className="relative min-h-[90vh] flex items-center justify-center bg-gradient-to-br from-primary via-primary/90 to-accent">
+        <div className="container-custom text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto px-4"
+          >
+            <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+              Transform Your Business with
+              <span className="block text-gradient-accent">
+                Data & Automation
+              </span>
+            </h1>
+            <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+              DigiConnex helps modern businesses scale faster with cutting-edge
+              B2B data, intelligent automation, and future-ready technology
+              solutions.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Link
+                to="/services"
+                className="px-6 py-3 rounded-lg bg-accent text-accent-foreground font-semibold hover:scale-105 transition-transform shadow-lg"
+              >
+                Explore Services
+              </Link>
+              <Link
+                to="/contact"
+                className="px-6 py-3 rounded-lg bg-white/10 border border-white/30 text-white hover:bg-white/20 transition-all"
+              >
+                Book a Strategy Call
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
-      {/* Stats Banner */}
+      {/* STATS BANNER */}
       <StatsBanner />
 
-      {/* Client Logos */}
+      {/* CLIENT LOGOS */}
       <ClientLogos />
 
-      {/* Services Section */}
+      {/* SERVICES SECTION */}
       <section className="section-padding bg-muted/30">
         <div className="container-custom">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-              <Star className="w-4 h-4" />
-              <span>Our Core Services</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
+          <div className="text-center mb-16 px-4">
+            <span className="inline-flex items-center bg-primary/10 text-primary px-4 py-2 rounded-full font-medium mb-6">
+              <Star className="w-4 h-4 mr-1" /> Our Core Services
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
               Comprehensive Solutions for{" "}
               <span className="text-gradient-primary">Modern Businesses</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
-              From data intelligence to automation and technology
-              infrastructure, we provide end-to-end solutions that drive
-              measurable growth and operational excellence.
+            <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
+              From data intelligence to automation, we deliver end-to-end
+              solutions that drive measurable results.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 px-4">
             {services.map((service, index) => (
-              <ServiceCard
-                key={index}
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
-                features={service.features}
-                link={service.link}
-                className="animate-fade-in"
-                style={{ animationDelay: `${index * 200}ms` }}
-              />
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <ServiceCard {...service} />
+              </motion.div>
             ))}
           </div>
 
-          <div className="text-center">
+          <div className="text-center mt-14">
             <Link
               to="/services"
-              className="inline-flex items-center space-x-2 btn-cta"
+              className="inline-flex items-center space-x-2 px-6 py-3 rounded-lg bg-gradient-accent text-accent-foreground font-semibold hover:scale-105 transition-transform shadow-md"
             >
               <span>Explore All Services</span>
               <ArrowRight className="w-5 h-5" />
@@ -172,123 +201,121 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Additional Features Section */}
+      {/* FEATURE GRID */}
       <section className="section-padding">
         <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
+          <div className="text-center mb-16 px-4">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
               Why Leading Companies{" "}
               <span className="text-gradient-accent">Choose DigiConnex</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
-              We combine cutting-edge technology with deep industry expertise to
-              deliver solutions that transform businesses and accelerate growth.
+            <p className="text-muted-foreground max-w-3xl mx-auto text-lg">
+              We combine cutting-edge tech and deep industry knowledge to
+              deliver growth-focused solutions.
             </p>
           </div>
 
-          <div className="feature-grid mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 px-4">
             {additionalFeatures.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <div
+                <motion.div
                   key={index}
-                  className="feature-card animate-slide-up"
-                  style={{ animationDelay: `${index * 150}ms` }}
+                  className="bg-card border border-border rounded-xl p-6 shadow-card hover:shadow-elegant transition-all hover:-translate-y-1"
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
                 >
-                  <div className="feature-icon">
-                    <Icon className="w-6 h-6 text-white" />
+                  <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4">
+                    <Icon className="text-white w-6 h-6" />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-3">
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
+                  <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </motion.div>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
+      {/* WHY CHOOSE US */}
       <section className="section-padding bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5">
         <div className="container-custom">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center space-x-2 bg-white/80 dark:bg-card/80 backdrop-blur-sm text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-              <Award className="w-4 h-4" />
-              <span>Trusted Excellence</span>
+          <div className="text-center mb-12 px-4">
+            <div className="inline-flex items-center space-x-2 bg-white/70 dark:bg-card/70 px-4 py-2 rounded-full mb-6">
+              <Award className="w-4 h-4 text-primary" />
+              <span className="font-medium text-primary">
+                Trusted Excellence
+              </span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
+            <h2 className="text-4xl md:text-5xl font-bold">
               Built for <span className="text-gradient-primary">Success</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
-              Our commitment to excellence and innovation has made us the
-              preferred partner for businesses looking to scale and optimize
-              their operations.
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-4">
             {whyChooseUsFeatures.map((feature, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="bg-card/80 backdrop-blur-sm border border-border/50 rounded-xl p-6 hover:border-primary/20 hover:shadow-lg transition-all duration-300 animate-scale-in"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="bg-card border border-border/50 rounded-xl p-6 shadow-card hover:shadow-elegant hover:border-primary/20 transition-all"
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ delay: index * 0.08 }}
               >
-                <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                    <CheckCircle className="w-4 h-4 text-white" />
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-gradient-primary rounded-md flex items-center justify-center">
+                    <CheckCircle className="text-white w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-foreground mb-2">
-                      {feature.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
+                    <h3 className="font-bold text-lg">{feature.title}</h3>
+                    <p className="text-muted-foreground text-sm">
                       {feature.description}
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonial Section */}
+      {/* TESTIMONIAL */}
       <section className="section-padding">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="mb-8">
-              <div className="flex justify-center space-x-1 mb-6">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-6 h-6 text-accent fill-current" />
-                ))}
-              </div>
-              <blockquote className="text-2xl md:text-3xl font-medium text-foreground mb-8 text-balance">
-                "DigiConnex transformed our entire sales process. We've seen a
-                180% increase in qualified leads and reduced our sales cycle by
-                40%. Their team's expertise and dedication to our success has
-                been exceptional."
-              </blockquote>
-              <div className="flex items-center justify-center space-x-4">
-                <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center">
-                  <Users className="w-8 h-8 text-white" />
-                </div>
-                <div className="text-left">
-                  <div className="font-bold text-foreground">Sarah Johnson</div>
-                  <div className="text-muted-foreground">
-                    VP of Sales, TechCorp
-                  </div>
-                </div>
-              </div>
+        <div className="container-custom max-w-3xl mx-auto text-center px-4">
+          <div className="flex justify-center mb-4">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="text-accent w-6 h-6 fill-current" />
+            ))}
+          </div>
+          <blockquote className="text-2xl md:text-3xl font-medium text-foreground mb-6 leading-relaxed">
+            "DigiConnex transformed our sales process — 180% more qualified
+            leads and a 40% shorter sales cycle. Their expertise is unmatched."
+          </blockquote>
+          <div className="flex justify-center items-center gap-4">
+            <div className="w-14 h-14 bg-gradient-primary rounded-full flex items-center justify-center">
+              <Users className="text-white w-6 h-6" />
+            </div>
+            <div className="text-left">
+              <p className="font-bold text-foreground">Sarah Johnson</p>
+              <p className="text-muted-foreground text-sm">
+                VP of Sales, TechCorp
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Call to Action Banner */}
-      <CallToActionBanner />
+      {/* CALL TO ACTION */}
+      <div className="container-custom">
+        <CallToActionBanner
+          title="Ready to Transform Your Business?"
+          subtitle="Join hundreds of companies accelerating growth with our solutions."
+          primaryCta="Get Started"
+          primaryCtaLink="/contact"
+          secondaryCta="Learn More"
+          secondaryCtaLink="/about"
+        />
+      </div>
     </div>
   );
 };

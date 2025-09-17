@@ -6,15 +6,7 @@ import { ThemeProvider } from "@/context/theme-provider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
-// Pages
-import Home from "@/pages/Home";
-import Services from "@/pages/Services";
-import Industries from "@/pages/Industries";
-import About from "@/pages/About";
-import CaseStudies from "@/pages/CaseStudies";
-import FAQ from "@/pages/FAQ";
-import Contact from "@/pages/Contact";
-import NotFound from "@/pages/NotFound";
+import appRoutes from "@/routes/routes";
 
 const queryClient = new QueryClient();
 
@@ -28,15 +20,9 @@ const App = () => (
             <Header />
             <main className="flex-1">
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/industries" element={<Industries />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/case-studies" element={<CaseStudies />} />
-                <Route path="/faq" element={<FAQ />} />
-                <Route path="/contact" element={<Contact />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
+                {appRoutes.map(({ path, element }, index) => (
+                  <Route key={index} path={path} element={element} />
+                ))}
               </Routes>
             </main>
             <Footer />
