@@ -1,5 +1,6 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const ServiceCard = ({
   icon: Icon,
@@ -10,44 +11,51 @@ const ServiceCard = ({
   className = "",
 }) => {
   return (
-    <div className={`card-elegant p-8 group cursor-pointer ${className}`}>
+    <div
+      className={`bg-card border border-border rounded-xl p-8 group hover-lift transition-all duration-300 hover:border-primary/20 hover:shadow-xl ${className}`}
+    >
       {/* Icon */}
-      <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+      <div className="w-16 h-16 bg-gradient-primary rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
         <Icon className="w-8 h-8 text-white" />
       </div>
 
       {/* Content */}
-      <h3 className="text-xl font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-300">
-        {title}
-      </h3>
+      <div className="space-y-4">
+        <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+          {title}
+        </h3>
 
-      <p className="text-muted-foreground mb-6 leading-relaxed">
-        {description}
-      </p>
+        <p className="text-muted-foreground leading-relaxed">{description}</p>
 
-      {/* Features List */}
-      {features.length > 0 && (
-        <ul className="space-y-2 mb-6">
-          {features.map((feature, index) => (
-            <li
-              key={index}
-              className="flex items-start space-x-2 text-sm text-muted-foreground"
-            >
-              <div className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0"></div>
-              <span>{feature}</span>
-            </li>
-          ))}
-        </ul>
-      )}
+        {/* Features */}
+        {features.length > 0 && (
+          <ul className="space-y-2">
+            {features.map((feature, index) => (
+              <li key={index} className="flex items-center space-x-3">
+                <CheckCircle className="w-5 h-5 text-secondary flex-shrink-0" />
+                <span className="text-sm text-foreground">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        )}
 
-      {/* CTA Link */}
-      <Link
-        to={link}
-        className="inline-flex items-center space-x-2 text-primary font-medium group-hover:text-secondary transition-colors duration-300"
-      >
-        <span>Learn More</span>
-        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-      </Link>
+        {/* CTA */}
+        <div className="pt-4">
+          <Button
+            asChild
+            variant="ghost"
+            className="group/btn p-0 h-auto text-primary hover:text-primary font-semibold"
+          >
+            <Link to={link} className="flex items-center space-x-2">
+              <span>Learn More</span>
+              <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-200" />
+            </Link>
+          </Button>
+        </div>
+      </div>
+
+      {/* Hover effect overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
     </div>
   );
 };

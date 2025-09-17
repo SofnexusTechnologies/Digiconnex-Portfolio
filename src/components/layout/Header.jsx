@@ -1,298 +1,222 @@
-import { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+"use client";
 
-/**
- * Accessible, responsive header for Marketing Agency portfolio
- * - Uses NavLink for active state
- * - Accessible dropdown (Services) with keyboard support
- * - Mobile slide-down menu with focus trap-ish behavior
- *
- * Ensure you have your design tokens set in globals.css + tailwind.config.js
- */
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X, ChevronDown, Sun, Moon, Monitor } from "lucide-react";
+import { useTheme } from "@/context/theme-provider";
+import { Button } from "@/components/ui/button";
 
-const NAV = [
-  { name: "Home", href: "/" },
-  {
-    name: "Services",
-    href: "/services",
-    dropdown: [
-      { name: "B2B Data Solutions", href: "/services#data" },
-      { name: "Automation Services", href: "/services#automation" },
-      { name: "Technology Solutions", href: "/services#technology" },
-    ],
-  },
-  { name: "Industries", href: "/industries" },
-  { name: "Case Studies", href: "/case-studies" },
-  { name: "About", href: "/about" },
-  { name: "FAQ", href: "/faq" },
-  { name: "Contact", href: "/contact" },
-];
+const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isThemeOpen, setIsThemeOpen] = useState(false);
+  const location = useLocation();
+  const { theme, setTheme } = useTheme();
 
-export default function Header() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
+  const navigation = [
+    { name: "Home", href: "/" },
+    {
+      name: "Services",
+      href: "/services",
+      dropdown: [
+        { name: "B2B Data Solutions", href: "/services#data" },
+        { name: "Automation Services", href: "/services#automation" },
+        { name: "Technology Solutions", href: "/services#technology" },
+      ],
+    },
+    { name: "Industries", href: "/industries" },
+    { name: "Case Studies", href: "/case-studies" },
+    { name: "About", href: "/about" },
+    { name: "FAQ", href: "/faq" },
+    { name: "Contact", href: "/contact" },
+  ];
 
-  const servicesRef = useRef(null);
-  const mobileRef = useRef(null);
-  const toggleBtnRef = useRef(null);
+  const isActive = (path) => location.pathname === path;
 
-  // Close dropdowns on outside click
-  useEffect(() => {
-    function onDocClick(e) {
-      if (servicesRef.current && !servicesRef.current.contains(e.target)) {
-        setServicesOpen(false);
-      }
-      if (
-        mobileRef.current &&
-        !mobileRef.current.contains(e.target) &&
-        toggleBtnRef.current &&
-        !toggleBtnRef.current.contains(e.target)
-      ) {
-        setMobileOpen(false);
-      }
-    }
-    function onEsc(e) {
-      if (e.key === "Escape") {
-        setServicesOpen(false);
-        setMobileOpen(false);
-      }
-    }
-    document.addEventListener("click", onDocClick);
-    document.addEventListener("keydown", onEsc);
-    return () => {
-      document.removeEventListener("click", onDocClick);
-      document.removeEventListener("keydown", onEsc);
-    };
-  }, []);
-
-  // Prevent body scroll when mobile menu open
-  useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-  }, [mobileOpen]);
+  const themeOptions = [
+    { value: "light", label: "Light", icon: Sun },
+    { value: "dark", label: "Dark", icon: Moon },
+    { value: "system", label: "System", icon: Monitor },
+  ];
 
   return (
-    <header className="sticky top-0 z-50">
-      <div className="bg-card/80 backdrop-blur-md border-b border-border">
-        <div className="container-custom flex items-center justify-between gap-4 py-3">
+    <header className="bg-card/95 backdrop-blur-md border-b border-border sticky top-0 z-50 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <NavLink to="/" className="flex items-center gap-3 no-underline">
-            <div
-              aria-hidden
-              className="w-10 h-10 rounded-lg flex items-center justify-center shadow-card bg-gradient-brand"
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-hidden
-              >
-                <rect
-                  x="3"
-                  y="3"
-                  width="18"
-                  height="18"
-                  rx="4"
-                  fill="white"
-                  opacity="0.06"
-                />
-                <path
-                  d="M6 14L10.2 9.6L14 14"
-                  stroke="white"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+          <Link to="/" className="flex items-center space-x-2 group">
+            <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+              <span className="text-white font-bold text-xl">D</span>
             </div>
-
-            <div>
-              <span className="block font-extrabold text-lg leading-none text-gradient">
-                AgencyPro
+            <div className="flex flex-col">
+              <span className="text-xl font-bold text-gradient-primary">
+                DigiConnex
               </span>
-              <span className="block text-xs -mt-0.5 text-muted-foreground">
-                Creative · Strategy · Tech
+              <span className="text-xs text-muted-foreground -mt-1">
+                Marketing Agency
               </span>
             </div>
-          </NavLink>
+          </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-6">
-            {NAV.map((item) => {
-              if (item.dropdown) {
-                return (
-                  <div key={item.name} className="relative" ref={servicesRef}>
-                    {/* trigger */}
-                    <button
-                      aria-haspopup="menu"
-                      aria-expanded={servicesOpen}
-                      onClick={() => setServicesOpen((v) => !v)}
-                      onMouseEnter={() => setServicesOpen(true)}
-                      onMouseLeave={() => setServicesOpen(false)}
-                      className={`inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition ${
-                        servicesOpen
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
+            {navigation.map((item) => (
+              <div key={item.name} className="relative">
+                {item.dropdown ? (
+                  <div
+                    className="relative"
+                    onMouseEnter={() => setIsServicesOpen(true)}
+                    onMouseLeave={() => setIsServicesOpen(false)}
+                  >
+                    <Link
+                      to={item.href}
+                      className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                        isActive(item.href)
                           ? "text-primary bg-primary/10"
                           : "text-foreground hover:text-primary hover:bg-primary/5"
                       }`}
                     >
                       <span>{item.name}</span>
                       <ChevronDown className="w-4 h-4" />
-                    </button>
-
-                    {/* menu */}
-                    <div
-                      role="menu"
-                      aria-label="Services submenu"
-                      className={`absolute left-0 mt-2 w-64 rounded-lg border border-border bg-card shadow-elegant overflow-hidden transition-transform duration-200 transform origin-top ${
-                        servicesOpen
-                          ? "scale-100 opacity-100 translate-y-0"
-                          : "scale-95 opacity-0 -translate-y-1 pointer-events-none"
-                      }`}
-                      onMouseEnter={() => setServicesOpen(true)}
-                      onMouseLeave={() => setServicesOpen(false)}
-                    >
-                      {item.dropdown.map((sub) => (
-                        <NavLink
-                          key={sub.name}
-                          to={sub.href}
-                          className={({ isActive }) =>
-                            `block px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-primary/5 transition-colors ${
-                              isActive ? "text-primary font-semibold" : ""
-                            }`
-                          }
-                        >
-                          {sub.name}
-                        </NavLink>
-                      ))}
-                    </div>
-                  </div>
-                );
-              }
-
-              return (
-                <NavLink
-                  key={item.name}
-                  to={item.href}
-                  className={({ isActive }) =>
-                    `px-3 py-2 rounded-md text-sm font-medium transition ${
-                      isActive
-                        ? "text-primary bg-primary/10"
-                        : "text-foreground hover:text-primary hover:bg-primary/5"
-                    }`
-                  }
-                >
-                  {item.name}
-                </NavLink>
-              );
-            })}
-
-            <NavLink to="/contact" className="ml-2">
-              <span className="btn-highlight shadow-elegant">Get Started</span>
-            </NavLink>
-          </nav>
-
-          {/* mobile toggle */}
-          <div className="md:hidden flex items-center">
-            <button
-              ref={toggleBtnRef}
-              aria-label={mobileOpen ? "Close menu" : "Open menu"}
-              aria-expanded={mobileOpen}
-              onClick={() => setMobileOpen((v) => !v)}
-              className="p-2 rounded-md text-foreground hover:text-primary hover:bg-primary/5 transition"
-            >
-              {mobileOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile menu panel */}
-        <div
-          ref={mobileRef}
-          className={`md:hidden overflow-hidden transition-[max-height,opacity,transform] duration-300 ease-in-out ${
-            mobileOpen
-              ? "max-h-[1000px] opacity-100 translate-y-0"
-              : "max-h-0 opacity-0 translate-y-[-6px]"
-          }`}
-        >
-          <div className="px-4 pb-6 pt-2">
-            <div className="space-y-1">
-              {NAV.map((item) => {
-                if (item.dropdown) {
-                  return (
-                    <div
-                      key={item.name}
-                      className="border-b border-border/60 pb-2"
-                    >
-                      <button
-                        onClick={() => setServicesOpen((v) => !v)}
-                        aria-expanded={servicesOpen}
-                        className="w-full flex items-center justify-between px-3 py-3 text-left rounded-md text-foreground hover:text-primary hover:bg-primary/5 transition"
-                      >
-                        <span className="font-medium">{item.name}</span>
-                        <ChevronDown
-                          className={`w-4 h-4 transition-transform ${
-                            servicesOpen ? "rotate-180" : "rotate-0"
-                          }`}
-                        />
-                      </button>
-
-                      <div
-                        className={`mt-2 pl-3 transition-[max-height,opacity] ${
-                          servicesOpen
-                            ? "max-h-40 opacity-100"
-                            : "max-h-0 opacity-0"
-                        }`}
-                      >
-                        {item.dropdown.map((sub) => (
-                          <NavLink
-                            key={sub.name}
-                            to={sub.href}
-                            onClick={() => {
-                              setMobileOpen(false);
-                              setServicesOpen(false);
-                            }}
-                            className="block px-3 py-2 rounded-md text-sm text-foreground hover:text-primary hover:bg-primary/5 transition"
+                    </Link>
+                    {isServicesOpen && (
+                      <div className="absolute top-full left-0 mt-1 w-56 bg-card border border-border rounded-lg shadow-lg py-2 animate-fade-in">
+                        {item.dropdown.map((dropdownItem) => (
+                          <Link
+                            key={dropdownItem.name}
+                            to={dropdownItem.href}
+                            className="block px-4 py-2 text-sm text-foreground hover:text-primary hover:bg-primary/5 transition-colors duration-200"
                           >
-                            {sub.name}
-                          </NavLink>
+                            {dropdownItem.name}
+                          </Link>
                         ))}
                       </div>
-                    </div>
-                  );
-                }
-
-                return (
-                  <NavLink
-                    key={item.name}
+                    )}
+                  </div>
+                ) : (
+                  <Link
                     to={item.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="block px-3 py-3 rounded-md text-foreground hover:text-primary hover:bg-primary/5 transition"
+                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                      isActive(item.href)
+                        ? "text-primary bg-primary/10"
+                        : "text-foreground hover:text-primary hover:bg-primary/5"
+                    }`}
                   >
                     {item.name}
-                  </NavLink>
-                );
-              })}
+                  </Link>
+                )}
+              </div>
+            ))}
+          </nav>
+
+          {/* Theme Toggle & CTA */}
+          <div className="hidden md:flex items-center space-x-4">
+            {/* Theme Toggle */}
+            <div
+              className="relative"
+              onMouseEnter={() => setIsThemeOpen(true)}
+              onMouseLeave={() => setIsThemeOpen(false)}
+            >
+              <Button variant="ghost" size="sm" className="w-9 h-9 p-0">
+                {theme === "light" && <Sun className="w-4 h-4" />}
+                {theme === "dark" && <Moon className="w-4 h-4" />}
+                {theme === "system" && <Monitor className="w-4 h-4" />}
+              </Button>
+              {isThemeOpen && (
+                <div className="absolute top-full right-0 mt-1 w-32 bg-card border border-border rounded-lg shadow-lg py-2 animate-fade-in">
+                  {themeOptions.map((option) => {
+                    const Icon = option.icon;
+                    return (
+                      <button
+                        key={option.value}
+                        onClick={() => setTheme(option.value)}
+                        className={`w-full flex items-center space-x-2 px-3 py-2 text-sm transition-colors duration-200 ${
+                          theme === option.value
+                            ? "text-primary bg-primary/10"
+                            : "text-foreground hover:text-primary hover:bg-primary/5"
+                        }`}
+                      >
+                        <Icon className="w-4 h-4" />
+                        <span>{option.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
-            <div className="mt-4 px-2">
-              <NavLink to="/contact" onClick={() => setMobileOpen(false)}>
-                <span className="btn-highlight shadow-elegant block text-center">
-                  Get Started
-                </span>
-              </NavLink>
-            </div>
+            {/* CTA Button */}
+            <Button className="bg-gradient-accent hover:opacity-90 text-accent-foreground font-semibold px-6">
+              Get Started
+            </Button>
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center space-x-2">
+            <Button variant="ghost" size="sm" className="w-9 h-9 p-0">
+              {theme === "light" && <Sun className="w-4 h-4" />}
+              {theme === "dark" && <Moon className="w-4 h-4" />}
+              {theme === "system" && <Monitor className="w-4 h-4" />}
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-9 h-9 p-0"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </Button>
           </div>
         </div>
+
+        {/* Mobile Navigation */}
+        {isOpen && (
+          <div className="md:hidden border-t border-border mt-2 pt-4 pb-4 animate-fade-in">
+            <div className="flex flex-col space-y-2">
+              {navigation.map((item) => (
+                <div key={item.name}>
+                  <Link
+                    to={item.href}
+                    className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+                      isActive(item.href)
+                        ? "text-primary bg-primary/10"
+                        : "text-foreground hover:text-primary hover:bg-primary/5"
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                  {item.dropdown && (
+                    <div className="ml-4 mt-2 space-y-1">
+                      {item.dropdown.map((dropdownItem) => (
+                        <Link
+                          key={dropdownItem.name}
+                          to={dropdownItem.href}
+                          className="block px-3 py-2 text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {dropdownItem.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+              <div className="pt-4 border-t border-border">
+                <Button className="w-full bg-gradient-accent hover:opacity-90 text-accent-foreground font-semibold">
+                  Get Started
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );
-}
+};
+
+export default Header;

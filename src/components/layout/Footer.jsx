@@ -1,8 +1,16 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Linkedin,
+  Twitter,
+  Facebook,
+  ArrowRight,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-export default function Footer() {
+const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
@@ -26,115 +34,84 @@ export default function Footer() {
     { name: "Facebook", href: "#", icon: Facebook },
   ];
 
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | error | success | loading
-  const [error, setError] = useState("");
-
-  function validateEmail(e) {
-    // simple email regex
-    return /\S+@\S+\.\S+/.test(e);
-  }
-
-  async function handleSubscribe(e) {
-    e.preventDefault();
-    setError("");
-    if (!validateEmail(email)) {
-      setError("Please enter a valid email address.");
-      setStatus("error");
-      return;
-    }
-
-    try {
-      setStatus("loading");
-      // Simulated network delay (replace with real API call)
-      await new Promise((r) => setTimeout(r, 700));
-      setStatus("success");
-      setEmail("");
-      setTimeout(() => setStatus("idle"), 3000);
-    } catch {
-      setStatus("error");
-      setError("Subscription failed — please try again later.");
-    }
-  }
-
   return (
-    <footer
-      className="bg-card text-card-foreground border-t border-border"
-      role="contentinfo"
-    >
+    <footer className="bg-primary text-primary-foreground">
+      {/* Newsletter Section */}
+      <div className="border-b border-primary-foreground/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 className="text-2xl font-bold mb-2">Stay Updated</h3>
+              <p className="text-primary-foreground/80">
+                Get the latest insights on B2B marketing, automation trends, and
+                technology solutions.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+              />
+              <Button className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-6">
+                Subscribe
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
-          <div className="space-y-4">
-            <Link to="/" className="flex items-center gap-3">
-              <div
-                aria-hidden
-                className="w-10 h-10 rounded-lg flex items-center justify-center shadow-card bg-gradient-brand"
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  aria-hidden
-                >
-                  <rect
-                    x="3"
-                    y="3"
-                    width="18"
-                    height="18"
-                    rx="4"
-                    fill="white"
-                    opacity="0.06"
-                  />
-                  <path
-                    d="M6 14L10.2 9.6L14 14"
-                    stroke="white"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <div>
-                <span className="block font-extrabold text-lg text-primary">
-                  AgencyPro
+          <div className="lg:col-span-1">
+            <Link to="/" className="flex items-center space-x-2 mb-4">
+              <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
+                <span className="text-accent-foreground font-bold text-xl">
+                  D
                 </span>
-                <small className="block text-sm text-muted-foreground">
-                  Creative · Strategy · Tech
-                </small>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xl font-bold">DigiConnex</span>
+                <span className="text-xs text-primary-foreground/70 -mt-1">
+                  Marketing Agency
+                </span>
               </div>
             </Link>
-
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              Empowering businesses with smarter data, faster growth, and
-              stronger technological foundations.
+            <p className="text-primary-foreground/80 mb-6 leading-relaxed">
+              Transforming businesses through data-driven marketing solutions,
+              intelligent automation, and cutting-edge technology
+              infrastructure.
             </p>
 
-            <div className="space-y-2 text-sm">
-              <div className="flex items-center gap-2 text-card-foreground">
-                <Mail className="w-4 h-4" /> <span>hello@agencypro.com</span>
+            {/* Contact Info */}
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3">
+                <Mail className="w-4 h-4 text-accent" />
+                <span className="text-sm">hello@digiconnex.com</span>
               </div>
-              <div className="flex items-center gap-2 text-card-foreground">
-                <Phone className="w-4 h-4" /> <span>+1 (555) 123-4567</span>
+              <div className="flex items-center space-x-3">
+                <Phone className="w-4 h-4 text-accent" />
+                <span className="text-sm">+1 (555) 123-4567</span>
               </div>
-              <div className="flex items-center gap-2 text-card-foreground">
-                <MapPin className="w-4 h-4" /> <span>San Francisco, CA</span>
+              <div className="flex items-center space-x-3">
+                <MapPin className="w-4 h-4 text-accent" />
+                <span className="text-sm">San Francisco, CA</span>
               </div>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold text-lg mb-4 text-primary">
-              Quick Links
-            </h3>
-            <ul className="space-y-2 text-sm">
+            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="text-card-foreground hover:text-accent transition-colors"
+                    className="text-primary-foreground/80 hover:text-accent transition-colors duration-200 text-sm"
                   >
                     {link.name}
                   </Link>
@@ -145,15 +122,13 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="font-semibold text-lg mb-4 text-primary">
-              Our Services
-            </h3>
-            <ul className="space-y-2 text-sm">
+            <h4 className="text-lg font-semibold mb-4">Services</h4>
+            <ul className="space-y-2">
               {services.map((service) => (
                 <li key={service.name}>
                   <Link
                     to={service.href}
-                    className="text-card-foreground hover:text-accent transition-colors"
+                    className="text-primary-foreground/80 hover:text-accent transition-colors duration-200 text-sm"
                   >
                     {service.name}
                   </Link>
@@ -162,104 +137,58 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Newsletter & Social */}
+          {/* Social & Legal */}
           <div>
-            <h3 className="font-semibold text-lg mb-4 text-primary">
-              Stay Connected
-            </h3>
-            <p className="text-sm mb-4 text-muted-foreground">
-              Subscribe for monthly insights, case studies, and product updates.
-            </p>
-
-            <form
-              onSubmit={handleSubscribe}
-              className="flex flex-col sm:flex-row gap-3 items-stretch"
-            >
-              <label htmlFor="footer-email" className="sr-only">
-                Email address
-              </label>
-
-              <input
-                id="footer-email"
-                type="email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  if (status !== "idle") setStatus("idle");
-                  setError("");
-                }}
-                placeholder="Your email address"
-                aria-invalid={status === "error"}
-                aria-describedby={
-                  status === "error" ? "footer-email-error" : undefined
-                }
-                className="w-full px-3 py-2 rounded-lg border border-border bg-card text-card-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-highlight transition"
-              />
-
-              <button
-                type="submit"
-                disabled={status === "loading"}
-                className="inline-flex items-center justify-center rounded-lg px-4 py-2 font-semibold text-sm bg-gradient-cta text-highlight-foreground shadow-lg"
-              >
-                {status === "loading" ? "Subscribing..." : "Subscribe"}
-              </button>
-            </form>
-
-            {/* feedback */}
-            <div className="mt-3 min-h-[1.25rem]">
-              {status === "error" && (
-                <p id="footer-email-error" className="text-sm text-destructive">
-                  {error}
-                </p>
-              )}
-              {status === "success" && (
-                <p className="text-sm font-medium text-accent">
-                  Thanks — you're on the list!
-                </p>
-              )}
-            </div>
-
-            {/* Social */}
-            <div className="flex items-center gap-3 mt-6">
-              {socialLinks.map((s) => {
-                const Icon = s.icon;
+            <h4 className="text-lg font-semibold mb-4">Connect</h4>
+            <div className="flex space-x-4 mb-6">
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
                 return (
                   <a
-                    key={s.name}
-                    href={s.href}
-                    aria-label={s.name}
-                    className="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border bg-transparent transition-shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-accent"
+                    key={social.name}
+                    href={social.href}
+                    className="w-10 h-10 bg-white/10 hover:bg-accent rounded-lg flex items-center justify-center transition-colors duration-200 group"
+                    aria-label={social.name}
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-5 h-5 group-hover:text-accent-foreground" />
                   </a>
                 );
               })}
             </div>
+
+            <div className="space-y-2">
+              <Link
+                to="/privacy"
+                className="block text-primary-foreground/80 hover:text-accent transition-colors duration-200 text-sm"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                to="/terms"
+                className="block text-primary-foreground/80 hover:text-accent transition-colors duration-200 text-sm"
+              >
+                Terms of Service
+              </Link>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Bottom bar */}
-        <div className="mt-10 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">
-            © {currentYear} AgencyPro. All rights reserved.
-          </p>
-
-          <div className="flex items-center gap-6">
-            <Link
-              to="/privacy"
-              className="text-sm text-card-foreground hover:text-accent transition"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              to="/terms"
-              className="text-sm text-card-foreground hover:text-accent transition"
-            >
-              Terms of Service
-            </Link>
+      {/* Bottom Bar */}
+      <div className="border-t border-primary-foreground/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <p className="text-primary-foreground/60 text-sm">
+              © {currentYear} DigiConnex. All rights reserved.
+            </p>
+            <p className="text-primary-foreground/60 text-sm mt-2 md:mt-0">
+              Made with ❤️ for growing businesses
+            </p>
           </div>
         </div>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

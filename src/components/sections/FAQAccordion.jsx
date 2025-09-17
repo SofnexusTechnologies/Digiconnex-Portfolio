@@ -53,41 +53,7 @@ const FAQAccordion = ({ faqs = [] }) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  return (
-    <div className="space-y-4">
-      {faqsToShow.map((faq, index) => (
-        <div key={index} className="card-elegant">
-          <button
-            onClick={() => toggleAccordion(index)}
-            className="w-full px-6 py-4 text-left flex items-center justify-between group focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 rounded-lg"
-          >
-            <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-              {faq.question}
-            </h3>
-            <ChevronDown
-              className={`w-5 h-5 text-muted-foreground transition-transform duration-300 ${
-                openIndex === index ? "rotate-180" : ""
-              }`}
-            />
-          </button>
-
-          <div
-            className={`overflow-hidden transition-all duration-300 ease-in-out ${
-              openIndex === index
-                ? "max-h-96 opacity-100 pb-6"
-                : "max-h-0 opacity-0"
-            }`}
-          >
-            <div className="px-6">
-              <p className="text-muted-foreground leading-relaxed">
-                {faq.answer}
-              </p>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
+  return <div className="space-y-4"></div>;
 };
 
 export default FAQAccordion;
