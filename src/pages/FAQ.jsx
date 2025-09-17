@@ -1,10 +1,26 @@
-import FAQAccordion from "@/components/sections/FAQAccordion";
+"use client";
 import CallToActionBanner from "@/components/sections/CallToActionBanner";
-import { HelpCircle, MessageCircle, Search, Phone } from "lucide-react";
+import {
+  HelpCircle,
+  MessageCircle,
+  Search,
+  Phone,
+  Star,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 import { useState } from "react";
 
 const FAQ = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [openItems, setOpenItems] = useState({});
+
+  const toggleItem = (index) => {
+    setOpenItems((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
 
   const faqCategories = [
     {
@@ -127,7 +143,179 @@ const FAQ = () => {
     },
   ];
 
-  return <div className="min-h-screen"></div>;
+  return (
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="section-padding bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10">
+        <div className="container-custom">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
+              <Star className="w-4 h-4" />
+              <span>Frequently Asked Questions</span>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 text-balance">
+              Get <span className="text-gradient-primary">Answers</span> to Your
+              Questions
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
+              Find answers to common questions about our services,
+              implementation process, and how we can help transform your
+              business.
+            </p>
+          </div>
+
+          {/* Search Bar */}
+          <div className="max-w-2xl mx-auto mb-16">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search frequently asked questions..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-12 pr-4 py-4 rounded-xl border border-border bg-card text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Content */}
+      <section className="section-padding">
+        <div className="container-custom">
+          <div className="max-w-4xl mx-auto">
+            {searchTerm ? (
+              /* Search Results */
+              <div className="space-y-4">
+                <h2 className="text-2xl font-bold text-foreground mb-6">
+                  Search Results ({filteredQuestions.length})
+                </h2>
+                {filteredQuestions.length > 0 ? (
+                  filteredQuestions.map((item, index) => (
+                    <div key={index} className="card-elegant p-6">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="text-sm text-primary font-medium mb-2">
+                            {item.category}
+                          </div>
+                          <h3 className="text-lg font-bold text-foreground mb-3">
+                            {item.question}
+                          </h3>
+                          <p className="text-muted-foreground leading-relaxed">
+                            {item.answer}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-12">
+                    <HelpCircle className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                    <h3 className="text-xl font-bold text-foreground mb-2">
+                      No results found
+                    </h3>
+                    <p className="text-muted-foreground">
+                      Try searching with different keywords or browse our
+                      categories below.
+                    </p>
+                  </div>
+                )}
+              </div>
+            ) : (
+              /* FAQ Categories */
+              <div className="space-y-8">
+                {faqCategories.map((category, categoryIndex) => (
+                  <div key={categoryIndex} className="card-elegant p-8">
+                    <h2 className="text-2xl font-bold text-foreground mb-6">
+                      {category.category}
+                    </h2>
+                    <div className="space-y-4">
+                      {category.questions.map((item, itemIndex) => {
+                        const globalIndex = `${categoryIndex}-${itemIndex}`;
+                        const isOpen = openItems[globalIndex];
+                        return (
+                          <div
+                            key={itemIndex}
+                            className="border border-border rounded-lg overflow-hidden"
+                          >
+                            <button
+                              onClick={() => toggleItem(globalIndex)}
+                              className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-muted/50 transition-colors duration-200"
+                            >
+                              <span className="font-semibold text-foreground pr-4">
+                                {item.question}
+                              </span>
+                              {isOpen ? (
+                                <ChevronUp className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                              ) : (
+                                <ChevronDown className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                              )}
+                            </button>
+                            {isOpen && (
+                              <div className="px-6 pb-4">
+                                <p className="text-muted-foreground leading-relaxed">
+                                  {item.answer}
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Support Options */}
+      <section className="section-padding bg-muted/30">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              Still have questions?
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Our support team is here to help you every step of the way.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {supportOptions.map((option, index) => {
+              const Icon = option.icon;
+              return (
+                <div
+                  key={index}
+                  className="card-elegant p-6 text-center hover-lift"
+                >
+                  <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mx-auto mb-4">
+                    <Icon className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">
+                    {option.title}
+                  </h3>
+                  <p className="text-muted-foreground mb-4">
+                    {option.description}
+                  </p>
+                  <div className="text-sm text-secondary font-medium mb-4">
+                    {option.available}
+                  </div>
+                  <button className="btn-secondary w-full">
+                    {option.action}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action Banner */}
+      <CallToActionBanner />
+    </div>
+  );
 };
 
 export default FAQ;
