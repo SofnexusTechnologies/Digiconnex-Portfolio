@@ -130,7 +130,7 @@ const Contact = () => {
                 viewport={{ once: true }}
                 className="card-elegant p-6 text-center hover:shadow-lg hover:-translate-y-1 transition-all"
               >
-                <div className="w-12 h-12 bg-gradient-to-br from-[#1A3258] to-[#34A89E] rounded-lg flex items-center justify-center mx-auto mb-4">
+                <div className="w-12 h-12 bg-amber-400 from-[#1A3258] to-[#34A89E] rounded-lg flex items-center justify-center mx-auto mb-4">
                   <Icon className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-lg font-bold text-foreground">
