@@ -10,122 +10,153 @@ Consistent theming, responsive layout, and premium UX.
 @custom-variant dark (&:is(.dark *));
 
 /* -----------------------------------------
-🌈 Color Tokens (Global CSS Variables)
+🌈 Color Tokens (HSL for Tailwind + Hex for direct CSS)
 ----------------------------------------- */
+
+/*
+  NOTE:
+  - Tailwind config uses `hsl(var(--primary))` etc. so we must expose HSL triplets
+    as the values of those CSS variables (e.g. --primary: 217 54.4% 22.4%).
+  - We also provide a `-hex` copy for places where you prefer hex strings.
+  - Keep both; use hsl(var(--...)) in tailwind-aware places and var(--...-hex)
+    where you want a hex literal.
+*/
+
 :root {
-  /* Brand Palette */
-  --background: #f5f5f5;
-  --foreground: #333333;
+  /* Primary colors (HSL triplets for Tailwind) */
+  --primary: 217 54.4% 22.4%; /* #1A3258 */
+  --primary-hex: #1a3258;
+  --primary-foreground: 0 0% 100%; /* white */
 
-  --card: #ffffff;
-  --card-foreground: #333333;
+  --secondary: 175 52.7% 43.1%; /* #34A89E */
+  --secondary-hex: #34a89e;
+  --secondary-foreground: 0 0% 100%;
 
-  --popover: #ffffff;
-  --popover-foreground: #333333;
+  --accent: 45 86.5% 62.4%; /* #F2C94C */
+  --accent-hex: #f2c94c;
+  --accent-foreground: 217 54.4% 22.4%; /* primary (dark blue) for contrast */
 
-  --primary: #1a3258; /* Deep Trustworthy Blue */
-  --primary-foreground: #ffffff;
+  /* Neutral / UI */
+  --background: 0 0% 96.1%; /* #F5F5F5 */
+  --background-hex: #f5f5f5;
+  --foreground: 0 0% 20%; /* #333333 */
+  --foreground-hex: #333333;
 
-  --secondary: #34a89e; /* Vibrant Teal */
-  --secondary-foreground: #ffffff;
+  --card: 0 0% 100%; /* #FFFFFF */
+  --card-hex: #ffffff;
+  --card-foreground: 0 0% 20%;
 
-  --muted: #f5f5f5;
-  --muted-foreground: #666666;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 20%;
 
-  --accent: #f2c94c; /* Gold Accent */
-  --accent-foreground: #1a3258;
+  --muted: 0 0% 96.1%; /* #F5F5F5 */
+  --muted-hex: #f5f5f5;
+  --muted-foreground: 0 0% 40%;
 
-  --destructive: #dc2626;
-  --destructive-foreground: #ffffff;
+  --border: 0 0% 89.8%; /* #E5E5E5 */
+  --border-hex: #e5e5e5;
 
-  --border: #e5e5e5;
-  --input: #ffffff;
-  --ring: #f2c94c;
+  --input: 0 0% 100%; /* white inputs by default */
+  --input-hex: #ffffff;
 
-  /* Data Visualization Palette */
-  --chart-1: #34a89e;
-  --chart-2: #f2c94c;
-  --chart-3: #1a3258;
-  --chart-4: #333333;
-  --chart-5: #f5f5f5;
+  --ring: 45 86.5% 62.4%; /* use accent as ring */
+  --ring-hex: #f2c94c;
 
-  /* Layout Tokens */
+  /* destructive */
+  --destructive: 0 72.2% 50.6%; /* #DC2626 */
+  --destructive-hex: #dc2626;
+  --destructive-foreground: 0 0% 100%;
+
+  /* charts */
+  --chart-1: 175 52.7% 43.1%; /* #34A89E */
+  --chart-2: 45 86.5% 62.4%; /* #F2C94C */
+  --chart-3: 217 54.4% 22.4%; /* #1A3258 */
+  --chart-4: 0 0% 20%; /* #333333 */
+  --chart-5: 0 0% 96.1%; /* #F5F5F5 */
+
+  /* Layout tokens */
   --radius: 0.75rem;
 
-  /* Sidebar Specific */
-  --sidebar: #1a3258;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #34a89e;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f2c94c;
-  --sidebar-accent-foreground: #1a3258;
-  --sidebar-border: #e5e5e5;
-  --sidebar-ring: #f2c94c;
+  /* Sidebar tokens */
+  --sidebar: 217 54.4% 22.4%;
+  --sidebar-hex: #1a3258;
+  --sidebar-foreground: 0 0% 100%;
+
+  /* small utility tokens */
+  --shadow-elegant: 0 18px 36px rgba(26, 50, 88, 0.15);
 }
 
-/* 🌙 Dark Mode Overrides */
+/* 🌙 Dark mode HSL triplets + hex copies (keeps Tailwind happy) */
 .dark {
-  --background: #1a1a1a;
-  --foreground: #f5f5f5;
+  --primary: 175 52.7% 43.1%; /* teal becomes primary in dark theme (same as #34A89E) */
+  --primary-hex: #34a89e;
+  --primary-foreground: 0 0% 100%;
 
-  --card: #2a2a2a;
-  --card-foreground: #f5f5f5;
+  --secondary: 217 54.4% 22.4%; /* dark-blue as a secondary in dark mode */
+  --secondary-hex: #1a3258;
+  --secondary-foreground: 0 0% 100%;
 
-  --popover: #2a2a2a;
-  --popover-foreground: #f5f5f5;
+  --accent: 45 86.5% 62.4%; /* accent stays bright */
+  --accent-hex: #f2c94c;
+  --accent-foreground: 217 54.4% 22.4%;
 
-  --primary: #34a89e; /* Switch to teal for vibrancy */
-  --secondary: #1a3258;
+  --background: 0 0% 10.2%; /* #1a1a1a */
+  --background-hex: #1a1a1a;
 
-  --muted: #2a2a2a;
-  --muted-foreground: #a0a0a0;
+  --foreground: 0 0% 96.1%; /* #f5f5f5 */
 
-  --accent: #f2c94c;
-  --accent-foreground: #1a3258;
+  --card: 0 0% 16.5%; /* #2a2a2a */
+  --card-hex: #2a2a2a;
+  --card-foreground: 0 0% 96.1%;
 
-  --border: #404040;
-  --input: #2a2a2a;
+  --muted: 0 0% 16.5%; /* darker muted */
+  --muted-foreground: 0 0% 65%;
+
+  --border: 0 0% 25.1%; /* #404040 */
+  --border-hex: #404040;
+
+  --input: 0 0% 16.5%; /* dark input */
+  --input-hex: #2a2a2a;
+
+  --ring: 175 52.7% 43.1%; /* teal ring in dark mode */
+  --ring-hex: #34a89e;
 }
 
 /* -----------------------------------------
-🖋 Theme (Tailwind Tokens)
+🖋 Theme (Tailwind tokens)
 ----------------------------------------- */
 @theme inline {
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular,
+    Menlo, Monaco, monospace;
 
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
+  /* match tailwind.config expectations */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
 }
 
 /* -----------------------------------------
@@ -133,25 +164,42 @@ Consistent theming, responsive layout, and premium UX.
 ----------------------------------------- */
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-none;
+  }
+
+  html,
+  body {
+    height: 100%;
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    /* Use hsl(...) so tailwind config picks up correct values */
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Premium Scrollbar */
+  /* Improved focus-visible support */
+  :where(:focus-visible) {
+    outline: none;
+  }
+
+  /* Premium Scrollbar - respects theme variables */
   ::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
   }
   ::-webkit-scrollbar-track {
-    @apply bg-muted;
+    background: hsl(var(--muted));
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-primary/20 rounded-full transition-colors;
+    background: hsl(var(--primary) / 0.2);
+    border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary/40;
+    background: hsl(var(--primary) / 0.35);
   }
 }
 
@@ -159,101 +207,242 @@ Consistent theming, responsive layout, and premium UX.
 🎨 Components & Utilities
 ----------------------------------------- */
 @layer components {
-  /* 🌈 Gradients */
+  /* -----------------------
+     Gradients (use HSL variables)
+     ----------------------- */
   .gradient-primary {
-    background: linear-gradient(135deg, #1a3258 0%, #34a89e 100%);
-  }
-  .gradient-accent {
-    background: linear-gradient(135deg, #34a89e 0%, #f2c94c 100%);
-  }
-  .gradient-hero {
-    background: linear-gradient(135deg, #1a3258 0%, #34a89e 50%, #f2c94c 100%);
+    background-image: linear-gradient(
+      135deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--secondary)) 100%
+    );
   }
 
-  /* 🎨 Text Gradients */
+  .gradient-accent {
+    background-image: linear-gradient(
+      135deg,
+      hsl(var(--secondary)) 0%,
+      hsl(var(--accent)) 100%
+    );
+  }
+
+  .gradient-hero {
+    background-image: linear-gradient(
+      135deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--secondary)) 50%,
+      hsl(var(--accent)) 100%
+    );
+  }
+
+  /* Text Gradients */
   .text-gradient-primary {
-    background: linear-gradient(135deg, #1a3258, #34a89e);
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary)),
+      hsl(var(--secondary))
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
   .text-gradient-accent {
-    background: linear-gradient(135deg, #34a89e, #f2c94c);
+    background: linear-gradient(
+      135deg,
+      hsl(var(--secondary)),
+      hsl(var(--accent))
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* ✨ Animations */
+  /* Animations */
   .animate-fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
+    animation: fadeIn 0.6s ease-out both;
   }
   .animate-slide-up {
-    animation: slideUp 0.8s ease-out forwards;
+    animation: slideUp 0.8s ease-out both;
   }
   .animate-scale-in {
-    animation: scaleIn 0.5s ease-out forwards;
+    animation: scaleIn 0.5s ease-out both;
   }
 
-  /* 🪟 Glass Effect */
+  /* Glass effect */
   .glass {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: color-mix(in hsl, hsl(var(--card)) 90%, transparent);
+    backdrop-filter: blur(10px);
+    border: 1px solid
+      color-mix(in hsl, hsl(var(--border)) 40%, hsl(var(--card)) 60%);
   }
   .dark .glass {
-    background: rgba(42, 42, 42, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: color-mix(
+      in hsl,
+      hsl(var(--card)) 12%,
+      hsl(var(--background)) 88%
+    );
   }
 
-  /* 🎯 Hover Lift */
+  /* Hover Lift */
   .hover-lift {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 0.28s;
   }
   .hover-lift:hover {
     transform: translateY(-6px);
-    box-shadow: 0 18px 36px rgba(26, 50, 88, 0.15);
+    box-shadow: var(--shadow-elegant);
   }
 
-  /* Button: Call to Action */
+  /* ---------- Buttons ---------- */
+
+  /* Primary CTA - uses gradient for premium look */
   .btn-cta {
-    @apply bg-primary text-primary-foreground font-semibold py-3 px-6 rounded-md shadow-md 
-           hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 1.1rem;
+    border-radius: 0.55rem;
+    background-image: linear-gradient(
+      90deg,
+      hsl(var(--accent)),
+      hsl(var(--secondary))
+    );
+    color: hsl(var(--accent-foreground));
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(26, 50, 88, 0.12);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+  }
+  .btn-cta:hover {
+    transform: translateY(-3px);
+    opacity: 0.98;
   }
 
-  /* Secondary Button style */
+  /* Primary (solid) button style */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-5 py-2.5 rounded-md font-semibold;
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    box-shadow: 0 6px 18px rgba(26, 50, 88, 0.08);
+  }
+  .btn-primary:hover {
+    filter: brightness(0.98);
+    transform: translateY(-2px);
+  }
+
+  /* Secondary outlined button for subtle CTAs */
   .btn-secondary {
-    @apply border border-primary text-primary font-semibold py-3 px-6 rounded-md
-           hover:bg-primary hover:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.56rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid hsl(var(--primary));
+    color: hsl(var(--primary));
+    background: transparent;
+    font-weight: 600;
+    transition: background-color 0.18s ease, color 0.18s ease,
+      transform 0.15s ease;
+  }
+  .btn-secondary:hover {
+    background: hsl(var(--primary) / 0.12);
+    color: hsl(var(--primary-foreground));
+    transform: translateY(-2px);
   }
 
-  /* Elegant Card for info / form containers */
+  /* Ghost button */
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm;
+    background: transparent;
+    color: hsl(var(--foreground));
+  }
+  .btn-ghost:hover {
+    background: hsl(var(--primary) / 0.06);
+    color: hsl(var(--primary));
+  }
+
+  /* ---------- Cards, panels ---------- */
   .card-elegant {
-    @apply bg-card text-card-foreground rounded-lg border border-border
-           shadow-md overflow-hidden;
+    background: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border-radius: var(--radius);
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 6px 18px rgba(12, 12, 12, 0.04);
+    overflow: hidden;
+    transition: box-shadow 0.22s ease, transform 0.22s ease;
+  }
+  .card-elegant:hover {
+    box-shadow: 0 18px 36px rgba(26, 50, 88, 0.1);
+    transform: translateY(-4px);
   }
 
-  /* Form Label */
+  /* ---------- Forms ---------- */
+
   .form-label {
-    @apply block text-sm font-medium text-foreground mb-2;
+    display: block;
+    font-weight: 600;
+    font-size: 0.925rem;
+    margin-bottom: 0.375rem;
+    color: hsl(var(--foreground));
   }
 
-  /* Form Input (text / email / phone etc) */
-  .form-input {
-    @apply block w-full px-4 py-2 border border-border rounded-md bg-input text-foreground
-           placeholder:opacity-50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition;
-  }
-
-  /* Form Select (dropdown) */
-  .form-select {
-    @apply block w-full px-4 py-2 border border-border rounded-md bg-input text-foreground
-           focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition;
-  }
-
-  /* Form Textarea */
+  .form-input,
+  .form-select,
   .form-textarea {
-    @apply block w-full px-4 py-2 border border-border rounded-md bg-input text-foreground 
-           placeholder:opacity-50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition resize-none;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--input));
+    color: hsl(var(--foreground));
+    font-size: 0.95rem;
+    transition: box-shadow 0.15s ease, border-color 0.15s ease,
+      background-color 0.15s ease;
+  }
+
+  .form-input::placeholder,
+  .form-textarea::placeholder {
+    color: color-mix(
+      in hsl,
+      hsl(var(--muted-foreground)),
+      hsl(var(--foreground)) 10%
+    );
+    opacity: 0.8;
+  }
+
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: hsl(var(--primary));
+    box-shadow: 0 6px 20px
+      color-mix(in hsl, hsl(var(--primary)) 14%, transparent);
+  }
+
+  /* select arrow - uses currentColor so theme applies */
+  .form-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7' /%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+    background-size: 1.05rem;
+    padding-right: 2.4rem;
+  }
+
+  /* small helper states */
+  .input-error {
+    border-color: hsl(var(--destructive));
+    box-shadow: 0 6px 20px
+      color-mix(in hsl, hsl(var(--destructive)) 12%, transparent);
+  }
+
+  /* Utility: subtle stat / badge */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    background: hsl(var(--primary) / 0.08);
+    color: hsl(var(--primary));
   }
 }
 
@@ -283,7 +472,7 @@ Consistent theming, responsive layout, and premium UX.
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.96);
   }
   to {
     opacity: 1;
@@ -302,33 +491,37 @@ Consistent theming, responsive layout, and premium UX.
     max-width: 80rem; /* ~1280px */
     padding-left: 1rem;
     padding-right: 1rem;
-
-    @media (min-width: 640px) {
+  }
+  @media (min-width: 640px) {
+    .container-custom {
       padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
-    @media (min-width: 1024px) {
+  }
+  @media (min-width: 1024px) {
+    .container-custom {
       padding-left: 2rem;
       padding-right: 2rem;
     }
   }
 
-  /* Section Vertical Spacing */
+  /* Section vertical spacing */
   .section-padding {
     padding-top: 4rem;
     padding-bottom: 4rem;
-
-    @media (min-width: 768px) {
-      padding-top: 5rem;
-      padding-bottom: 5rem;
+  }
+  @media (min-width: 768px) {
+    .section-padding {
+      padding-block: 5rem;
     }
-    @media (min-width: 1280px) {
-      padding-top: 6rem;
-      padding-bottom: 6rem;
+  }
+  @media (min-width: 1280px) {
+    .section-padding {
+      padding-block: 6rem;
     }
   }
 
-  /* Typography Helpers */
+  /* Typography helpers (nicely sized defaults used throughout) */
   .text-balance {
     text-wrap: balance;
   }
@@ -336,8 +529,11 @@ Consistent theming, responsive layout, and premium UX.
     text-wrap: pretty;
   }
 
-  /* Accessible Focus Ring */
+  /* Focus ring utility for keyboard users */
   .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background;
+    box-shadow: 0 0 0 4px color-mix(in hsl, hsl(var(--ring)) 16%, transparent);
+    outline: none;
   }
 }
+
+/* End of file */
