@@ -37,40 +37,57 @@ const Footer = () => {
 
   return (
     <footer className="bg-card text-card-foreground border-t border-border mt-12">
-      {/* Newsletter Section */}
-      <div className="gradient-hero text-center sm:text-left">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="space-y-2 max-w-md">
-            <h3 className="text-3xl font-extrabold text-white">
+      {/* Newsletter CTA */}
+      <div className="footer-newsletter text-center sm:text-left">
+        <div className="container-custom py-12 flex flex-col sm:flex-row items-center justify-between gap-8">
+          <motion.div
+            initial={{ opacity: 0, x: -10 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="space-y-2 max-w-lg"
+          >
+            <h3 className="text-3xl md:text-4xl font-extrabold leading-tight">
               Get Exclusive Insights
             </h3>
-            <p className="text-white/90 text-sm">
+            <p className="text-white/85 text-base">
               Join our newsletter and stay ahead in B2B marketing, automation,
               and technology.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="flex w-full sm:w-auto flex-col sm:flex-row gap-3">
+          <motion.form
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="flex w-full sm:w-auto flex-col sm:flex-row gap-3"
+          >
             <input
               type="email"
               placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-accent"
+              className="input-glow flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/30 text-white placeholder-white/70 focus:ring-accent transition"
             />
-            <Button className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-6 flex items-center justify-center gap-2 transition-all hover:scale-105 shadow-md">
+            <Button className="btn-gradient-accent px-6 flex items-center gap-2">
               Subscribe <ArrowRight className="w-4 h-4" />
             </Button>
-          </div>
+          </motion.form>
         </div>
       </div>
 
       {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="container-custom py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
         {/* Company Info */}
-        <div>
-          <Link to="/" className="flex items-center space-x-2 mb-4 group">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="space-y-4"
+        >
+          <Link to="/" className="flex items-center space-x-2 group">
             <motion.div
               whileHover={{ scale: 1.1 }}
-              className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center shadow-md"
+              className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-md"
             >
               <span className="text-white font-bold text-lg">D</span>
             </motion.div>
@@ -83,10 +100,11 @@ const Footer = () => {
               </span>
             </div>
           </Link>
-          <p className="text-muted-foreground leading-relaxed mb-6">
+          <p className="text-muted-foreground leading-relaxed">
             Transforming businesses with data-driven strategies, intelligent
             automation, and modern tech solutions for scalable growth.
           </p>
+
           <div className="space-y-3 text-sm">
             <div className="flex items-center gap-3">
               <Mail className="w-4 h-4 text-accent" />
@@ -101,87 +119,79 @@ const Footer = () => {
               San Francisco, CA
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Quick Links */}
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
           <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
           <ul className="space-y-2">
             {quickLinks.map((link) => (
               <li key={link.name}>
-                <Link
-                  to={link.href}
-                  className="text-muted-foreground hover:text-accent transition-colors text-sm"
-                >
+                <Link to={link.href} className="footer-link text-sm">
                   {link.name}
                 </Link>
               </li>
             ))}
           </ul>
-        </div>
+        </motion.div>
 
         {/* Services */}
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
           <h4 className="text-lg font-semibold mb-4">Services</h4>
           <ul className="space-y-2">
             {services.map((service) => (
               <li key={service.name}>
-                <Link
-                  to={service.href}
-                  className="text-muted-foreground hover:text-accent transition-colors text-sm"
-                >
+                <Link to={service.href} className="footer-link text-sm">
                   {service.name}
                 </Link>
               </li>
             ))}
           </ul>
-        </div>
+        </motion.div>
 
-        {/* Social & Legal */}
-        <div>
+        {/* Social */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
           <h4 className="text-lg font-semibold mb-4">Connect With Us</h4>
           <div className="flex space-x-3 mb-6">
-            {socialLinks.map((social) => {
-              const Icon = social.icon;
-              return (
-                <motion.a
-                  whileHover={{ scale: 1.1 }}
-                  key={social.name}
-                  href={social.href}
-                  className="w-10 h-10 rounded-lg bg-muted hover:bg-accent flex items-center justify-center transition-colors shadow-sm"
-                  aria-label={social.name}
-                >
-                  <Icon className="w-5 h-5 text-foreground group-hover:text-accent-foreground" />
-                </motion.a>
-              );
-            })}
+            {socialLinks.map(({ name, href, icon: Icon }) => (
+              <a
+                key={name}
+                href={href}
+                aria-label={name}
+                className="footer-social w-10 h-10 rounded-lg flex items-center justify-center"
+              >
+                <Icon className="w-5 h-5" />
+              </a>
+            ))}
           </div>
           <div className="space-y-2 text-sm">
-            <Link
-              to="/privacy"
-              className="block text-muted-foreground hover:text-accent transition-colors"
-            >
+            <Link to="/privacy" className="footer-link block">
               Privacy Policy
             </Link>
-            <Link
-              to="/terms"
-              className="block text-muted-foreground hover:text-accent transition-colors"
-            >
+            <Link to="/terms" className="footer-link block">
               Terms of Service
             </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Bottom Bar */}
       <div className="border-t border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between">
-          <p className="text-muted-foreground text-sm">
-            © {currentYear} DigiConnex. All rights reserved.
-          </p>
-          <p className="text-muted-foreground text-sm mt-2 md:mt-0">
-            Made with ❤️ & innovation for growing businesses
-          </p>
+        <div className="container-custom py-6 flex flex-col md:flex-row items-center justify-between text-sm text-muted-foreground gap-2">
+          <p>© {currentYear} DigiConnex. All rights reserved.</p>
+          <p>Design and Developed by www.sofnexus.com</p>
         </div>
       </div>
     </footer>

@@ -294,26 +294,38 @@ Consistent theming, responsive layout, and premium UX.
 
   /* ---------- Buttons ---------- */
 
-  /* Primary CTA - uses gradient for premium look */
+  /* 🌟 Premium CTA Button (Hero / Primary) */
   .btn-cta {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.6rem;
-    padding: 0.65rem 1.1rem;
-    border-radius: 0.55rem;
-    background-image: linear-gradient(
-      90deg,
-      hsl(var(--accent)),
-      hsl(var(--secondary))
+    padding: 0.75rem 1.4rem;
+    border-radius: 0.65rem;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--accent)) 0%,
+      hsl(var(--secondary)) 100%
     );
     color: hsl(var(--accent-foreground));
-    font-weight: 600;
-    box-shadow: 0 8px 24px rgba(26, 50, 88, 0.12);
-    transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+    box-shadow: 0 6px 20px hsl(var(--accent) / 0.25);
+    border: 1px solid hsl(var(--accent) / 0.4);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(0);
   }
+
   .btn-cta:hover {
-    transform: translateY(-3px);
-    opacity: 0.98;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 28px hsl(var(--accent) / 0.35);
+    filter: brightness(1.05);
+  }
+
+  .btn-cta:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 12px hsl(var(--accent) / 0.2);
   }
 
   /* Primary (solid) button style */
@@ -444,6 +456,166 @@ Consistent theming, responsive layout, and premium UX.
     background: hsl(var(--primary) / 0.08);
     color: hsl(var(--primary));
   }
+
+  /* Header glass effect (for sticky headers) */
+  .header-glass {
+    background-color: color-mix(in hsl, hsl(var(--card)) 90%, transparent);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid hsl(var(--border) / 0.6);
+    box-shadow: 0 4px 24px hsl(var(--primary) / 0.05);
+  }
+
+  /* 🎨 Gradient Accent Button (Reusable) */
+  .btn-gradient-accent {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.3rem;
+    border-radius: 0.6rem;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--accent)) 0%,
+      hsl(var(--secondary)) 100%
+    );
+    color: hsl(var(--accent-foreground));
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+    box-shadow: 0 4px 14px hsl(var(--primary) / 0.18);
+    border: 1px solid hsl(var(--accent) / 0.4);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(0);
+  }
+
+  .btn-gradient-accent:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 20px hsl(var(--primary) / 0.25);
+    filter: brightness(1.04);
+  }
+
+  .btn-gradient-accent:active {
+    transform: scale(0.97);
+    box-shadow: 0 3px 10px hsl(var(--primary) / 0.2);
+  }
+
+  /* Footer-specific tweaks for theme support */
+  .footer-newsletter {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--secondary)) 50%,
+      hsl(var(--accent)) 100%
+    );
+    color: white;
+  }
+
+  .footer-link {
+    @apply text-muted-foreground hover:text-accent transition-colors;
+  }
+
+  /* Fancy input glow on focus */
+  .input-glow:focus {
+    outline: none;
+    border-color: hsl(var(--accent));
+    box-shadow: 0 0 0 3px hsl(var(--accent) / 0.4);
+    background-color: hsl(var(--input));
+  }
+
+  /* Footer Social Icon Hover */
+  .footer-social {
+    background-color: hsl(var(--muted));
+    transition: transform 0.25s ease, background-color 0.25s ease;
+  }
+  .footer-social:hover {
+    transform: translateY(-3px) scale(1.05);
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+
+  .bg-grid-white {
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.08) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  .bg-grid-black {
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.08) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .glass-strong {
+    background-color: color-mix(in hsl, hsl(var(--card)) 70%, transparent);
+    backdrop-filter: blur(14px);
+    border: 1px solid hsl(var(--border) / 0.4);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .hover-lift-sm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 50, 88, 0.08);
+  }
+
+  h1,
+  .h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 800;
+  }
+  h2,
+  .h2 {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    font-weight: 700;
+  }
+
+  /* Premium Glow for Numbers or Icons */
+  .drop-shadow-glow {
+    text-shadow: 0 0 12px hsl(var(--accent) / 0.4),
+      0 0 24px hsl(var(--accent) / 0.2);
+  }
+
+  /* Logo card style with soft glow on hover */
+  .logo-card {
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04);
+  }
+  .logo-card:hover {
+    box-shadow: 0 10px 28px hsl(var(--accent) / 0.15);
+    transform: translateY(-4px) scale(1.02);
+    background-color: color-mix(
+      in hsl,
+      hsl(var(--card)) 95%,
+      hsl(var(--accent)) 5%
+    );
+  }
+
+  /* Accent shadow utility for reusable glow effect */
+  .shadow-accent {
+    box-shadow: 0 4px 14px hsl(var(--accent) / 0.25);
+  }
+  .hover\:shadow-accent:hover {
+    box-shadow: 0 8px 22px hsl(var(--accent) / 0.35);
+  }
+
+  /* Gradient text utility for premium headings */
+  .text-gradient-primary {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--secondary)) 60%,
+      hsl(var(--accent)) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 /* -----------------------------------------
@@ -533,6 +705,15 @@ Consistent theming, responsive layout, and premium UX.
   .focus-ring {
     box-shadow: 0 0 0 4px color-mix(in hsl, hsl(var(--ring)) 16%, transparent);
     outline: none;
+  }
+
+  /* Smooth hover-lift but softer than cards */
+  .hover-lift-sm {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .hover-lift-sm:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px hsl(var(--primary) / 0.15);
   }
 }
 
